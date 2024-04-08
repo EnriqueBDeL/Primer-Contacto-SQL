@@ -1,0 +1,112 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+PRACTICA 7:
+
+
+
+1. SELECT ENAME, HIREDATE
+   FROM EMP
+   WHERE DEPTNO = 30 AND ENAME NOT LIKE 'BLAKE'
+   GROUP BY ENAME, HIREDATE;
+
+
+2. SELECT EMPNO, ENAME
+   FROM EMP
+   WHERE SAL > (SELECT AVG(SAL) FROM EMP)
+   ORDER BY SAL DESC;
+
+
+3. SELECT E.EMPNO, E.ENAME
+   FROM EMP E
+   WHERE E.DEPTNO IN (
+       SELECT DEPTNO
+       FROM EMP
+       WHERE ENAME LIKE '%T%'
+   );
+
+
+
+4. SELECT E.ENAME, E.DEPTNO, E.JOB 
+   FROM EMP E
+   JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+   WHERE D.LOC = 'DALLAS';
+
+
+
+5. SELECT E.ENAME, E.SAL 
+   FROM EMP E
+   WHERE E.MGR = (SELECT EMPNO FROM EMP WHERE ENAME = 'KING');
+
+
+
+6. SELECT E.DEPTNO, E.ENAME, E.JOB
+   FROM EMP E
+   JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+   WHERE D.DNAME = 'SALES';
+
+
+
+7. SELECT E.EMPNO, E.ENAME, E.SAL
+FROM EMP E
+WHERE E.DEPTNO IN (
+    SELECT DEPTNO
+    FROM EMP
+    WHERE ENAME LIKE '%T%'
+    AND SAL > (SELECT AVG(SAL) FROM EMP)
+);
+
+
+
+
+
+
+EJERCICIO EXTRAS:
+
+
+1. SELECT E.ENAME, E.DEPTNO, E.SAL
+FROM EMP E
+WHERE (E.DEPTNO, E.SAL) IN (
+    SELECT DEPTNO, SAL
+    FROM EMP
+    WHERE COMM IS NOT NULL
+);
+
+
+
+2. SELECT E.ENAME, D.DNAME, E.SAL
+FROM EMP E
+JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+WHERE (E.SAL, E.COMM) IN (
+    SELECT E2.SAL, E2.COMM
+    FROM EMP E2
+    JOIN DEPT D2 ON E2.DEPTNO = D2.DEPTNO
+    WHERE D2.LOC = 'DALLAS'
+);
+
+
+
+3. SELECT E.ENAME, E.HIREDATE, E.SAL
+FROM EMP E
+WHERE (E.SAL, E.COMM) = (
+    SELECT S.SAL, S.COMM
+    FROM EMP S
+    WHERE S.ENAME = 'SCOTT'
+);
+
+
+
+
+4. SELECT ENAME, SAL
+FROM EMP
+WHERE SAL > (SELECT MAX(SAL) FROM EMP WHERE JOB = 'CLERK')
+ORDER BY SAL DESC;
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------

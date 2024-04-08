@@ -1,0 +1,137 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Practica 1:
+
+
+
+2. Verdadero
+
+3. Verdadero aunque sería mejor poner "Salary"
+
+4. Verdadero
+
+5. El primer error, es que falta una coma entre ename y salary. Segundo, no es salary, es sal. Tercero, cambiamos el x por *. Y por ultimo, ANNUAL SALARY va entre comillas dobles. 
+
+
+6. SELECT *
+   FROM dept;
+
+
+7. SELECT empno,ename,job,hiredate
+   FROM emp;
+
+
+9. SELECT job
+    FROM emp;
+
+
+10. SELECT empno "NUMERO DE TRABAJADOR",ename "EMPLEADO",job "TRABAJO",hiredate "FECHA DE CONSTRUCCION"
+    FROM emp;
+
+
+
+11. SELECT ename ||' , '||job 
+       AS "Employee and Title"
+    FROM emp;
+
+
+
+12. SELECT empno||' , '||ename||' , '||job||' , '||mgr||' , '||hiredate||' , '||sal||' , '||comm||' , '||deptno
+       AS "THE_OUTPUT"
+    FROM emp;
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Practica 2:
+
+
+
+1. SELECT ename, sal
+   FROM emp
+   WHERE sal > 2850;
+
+
+
+
+2. SELECT ename, deptno
+   FROM emp
+   WHERE  empno = 7566;
+
+
+
+3. SELECT ename, sal
+   FROM emp
+   WHERE sal NOT BETWEEN 1500 AND 2850;
+
+
+
+4. SELECT ename, job, hiredate
+   FROM emp
+   WHERE hiredate BETWEEN '20-Feb-1981' AND '01-May-1981'
+   ORDER BY hiredate;
+
+
+
+5. SELECT ename, deptno
+   FROM emp
+   WHERE deptno = 10 OR deptno = 30
+   ORDER BY ename;
+
+
+
+6. SELECT ename "EMPLEADO", sal "SALARIO MENSUAL"
+   FROM emp
+   WHERE sal > 1500 AND deptno = 10 OR deptno = 30;
+
+
+
+7. SELECT ename, hiredate
+   FROM emp
+   WHERE EXTRACT(YEAR FROM hiredate) = 1982;
+
+
+
+8. SELECT ename, job
+   FROM emp
+   WHERE mgr IS NULL;
+
+
+9. SELECT ename, sal, comm
+   FROM emp
+   WHERE comm IS NOT NULL
+   ORDER BY sal DESC;
+
+
+10. SELECT ename
+    FROM emp
+    WHERE ename LIKE '__A%';
+
+
+11. SELECT ename
+    FROM emp
+    WHERE ename LIKE '%L%L%' 
+    AND deptno = 30 OR mgr = 7782;
+
+
+12. SELECT ename, job, sal
+    FROM emp
+    WHERE job = 'CLERK' OR job = 'ANALYST' AND  sal <> 1000 AND sal <> 3000 AND sal <> 5000;
+
+
+
+13. SELECT ename, sal, comm
+    FROM emp
+    WHERE comm > sal * 1.10;
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------

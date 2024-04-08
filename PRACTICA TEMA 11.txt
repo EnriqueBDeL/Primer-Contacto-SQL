@@ -1,0 +1,88 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Practica 11:
+
+
+
+- Parte 1:
+
+
+1. CREATE VIEW EMPLOYEES_VU AS
+   SELECT EMPLOYEE_ID , FIRST_NAME AS EMPLOYEE, DEPARTMENT_ID
+   FROM EMPLOYEES;
+
+
+
+2. SELECT * 
+   FROM EMPLOYEES_VU;
+
+
+
+
+3. SELECT EMPLOYEE, DEPARTMENT_ID
+   FROM EMPLOYEES_VU;
+
+
+
+
+4. CREATE VIEW DEPT50 AS
+   SELECT EMPNO AS EMPNO, ENAME AS EMPLOYEE, DEPTNO AS DEPTNO
+   FROM EMP
+   WHERE DEPTNO = 50;
+
+
+5. DESCRIBE DEPT50;
+
+
+6. UPDATE EMPLOYEES
+   SET DEPARTMENT_ID = 80
+   WHERE LAST_NAME = 'Matos';
+
+
+
+
+- Parte 2:
+
+
+
+
+7. CREATE SEQUENCE DEPT_ID_SEQ
+  START WITH 200
+  MAXVALUE 1000
+  INCREMENT BY 10;
+
+  INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (DEPT_ID_SEQ.NEXTVAL, 'Ventas', 'Nueva York');
+
+
+8. INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (DEPT_ID_SEQ.NEXTVAL, 'Education', 'Cualquier ubicación');
+
+   INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (DEPT_ID_SEQ.NEXTVAL, 'Administration', 'Cualquier ubicación');
+
+   COMMIT;
+
+
+
+9. CREATE INDEX idx_name ON DEPT(NAME);
+
+
+10. CREATE SYNONYM EMP FOR EMPLOYEES;
+
+    SELECT * 
+    FROM EMP;  
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------

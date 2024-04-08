@@ -1,0 +1,60 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Practica 3:
+
+
+
+1. SELECT  SYSDATE 
+   FROM dual;
+
+
+2. SELECT EMPNO, ENAME, SAL, ROUND(SAL + sal*0.15) AS "NUEVO SALARIO"
+   FROM emp;
+
+
+
+4. SELECT EMPNO, ENAME, SAL, ROUND(SAL + sal*0.15) AS "NUEVO SALARIO", ROUND((SAL + sal*0.15)-SAL) "DECRECIMIENTO"
+   FROM emp;
+
+
+5. SELECT ENAME, HIREDATE, TO_CHAR(NEXT_DAY(HIREDATE + INTERVAL '6' MONTH, 'MONDAY'), 'Day DD "de" Month "de" YYYY') AS "REVISIÓN"
+FROM EMP;
+
+
+6. SELECT ename, ROUND(MONTHS_BETWEEN(SYSDATE, hiredate)) AS "MESES_TRABAJADOS"
+   FROM emp
+   ORDER BY hiredate DESC;
+
+
+7. SELECT ename || ' gana ' || sal || ' mensualmente pero quiere ' || (sal * 3)  "Salarios de ensueño"
+   FROM emp;
+ 
+
+
+8. SELECT ename,  LPAD(sal, 15, '$') AS "SALARIO"
+   FROM emp;
+
+
+9. SELECT INITCAP(ename), LENGTH(ename) AS "Longitud del Nombre"
+   FROM emp
+   WHERE ename LIKE 'J%' OR ename LIKE 'A%'OR ename LIKE 'M%';
+
+
+10. SELECT ename, hiredate,TO_CHAR(hiredate, 'DAY') AS "Día de la Semana"
+    FROM emp;
+
+
+11. SELECT ENAME,
+       CASE
+           WHEN COMM IS NULL THEN 'SIN COMISION'
+           ELSE TO_CHAR(COMM)
+       END AS "COMM"
+   FROM EMP;
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------

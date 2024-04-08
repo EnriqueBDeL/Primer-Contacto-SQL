@@ -1,0 +1,121 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Practica 9:
+
+
+
+
+1. Y  2.
+
+CREATE TABLE my_employee (
+    ID NUMBER(4) NOT NULL,
+    LAST_NAME VARCHAR(25),
+    FIRST_NAME VARCHAR(25),
+    USERID VARCHAR(8),
+    SALARY NUMBER(9, 2)
+);
+
+
+
+3. INSERT INTO MY_EMPLOYEE VALUES (1, 'Patel', 'Ralph', 'rpatel', 895);
+
+
+
+4. INSERT INTO MY_EMPLOYEE VALUES (2, 'Dancs', 'Betty', 'bdancs', 860);
+
+
+
+5. SELECT *
+   FROM MY_EMPLOYEE
+
+
+6. INSERT INTO MY_EMPLOYEE VALUES (3, 'Biri', 'Ben', 'bbiri', 1100);
+   INSERT INTO MY_EMPLOYEE VALUES (4, 'Newman', 'Chad', 'cnewman', 750);
+
+
+
+7. INSERT INTO MY_EMPLOYEE VALUES (1, 'Patel', 'Ralph', 'rpatel', 895);
+   INSERT INTO MY_EMPLOYEE VALUES (2, 'Dancs', 'Betty', 'bdancs', 860);
+
+
+8. SELECT *
+   FROM MY_EMPLOYEE
+
+
+9. COMMIT;
+
+
+10. UPDATE MY_EMPLOYEE
+    SET LAST_NAME = 'Drexler'
+    WHERE ID = 3;
+
+
+11. UPDATE MY_EMPLOYEE
+    SET SALARY = 1000
+    WHERE SALARY < 900;
+
+
+12. SELECT *
+    FROM MY_EMPLOYEE
+
+
+
+13. DELETE FROM MY_EMPLOYEE
+    WHERE LAST_NAME = 'Dancs' AND FIRST_NAME = 'Betty' AND USERID = 'bdancs' AND SALARY = 1000;
+
+
+
+14. SELECT *
+    FROM MY_EMPLOYEE
+
+
+15. COMMIT;
+
+
+
+16. INSERT INTO MY_EMPLOYEE VALUES (5, 'Ropeburn', 'Audrey', 'aropebur', 1550);
+
+
+
+17. SELECT *
+    FROM MY_EMPLOYEE
+
+
+18. SAVEPOINT GUARDADO;
+
+
+19. DELETE FROM MY_EMPLOYEE;
+
+
+20. SELECT *
+    FROM MY_EMPLOYEE
+
+
+21. ROLLBACK TO GUARDADO;
+
+
+22. SELECT *
+    FROM MY_EMPLOYEE
+
+
+23. COMMIT;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------

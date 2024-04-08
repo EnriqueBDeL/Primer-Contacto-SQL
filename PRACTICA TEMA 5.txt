@@ -1,0 +1,66 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Practica 5:
+
+
+1. Verdadero
+
+2. Verdadero
+
+3. Falso
+
+4. SELECT MAX(SAL)"MAXIMO", MIN(SAL)"MINIMO", SUM(SAL)"SUM", ROUND(AVG(SAL)) "AVERAGE" 
+   FROM emp;
+
+5. SELECT  JOB, MAX(SAL) AS "MAXIMO", MIN(SAL) AS "MINIMO", SUM(SAL) AS "SUMA", ROUND(AVG(SAL)) AS "AVERAGE"
+   FROM emp
+   GROUP BY  JOB;
+
+6. SELECT  JOB, COUNT(JOB)
+   FROM emp
+   GROUP BY  JOB;
+
+7. SELECT COUNT(*) AS "Número de Gerentes"
+   FROM emp
+   WHERE JOB = 'MANAGER';
+
+
+8. SELECT MAX(SAL) - MIN(SAL) "DIFERENCIA"
+   FROM emp;
+
+
+9. SELECT MGR , MIN(SAL) 
+   FROM emp
+   WHERE MGR IS NOT NULL
+   GROUP BY MGR
+   HAVING MIN(SAL) >= 1000
+   ORDER BY MIN(SAL) DESC;
+
+
+10. SELECT D.dname AS "Nombre del Departamento", L.LOC AS "Ubicación", COUNT(E.empno) AS "Número de Personas", AVG(E.sal) AS "Salario"
+    FROM dept D
+    JOIN emp E ON D.deptno = E.deptno
+    JOIN LOC L ON D.LOC = L.LOC;
+
+
+11. SELECT 'Total Employees' AS "Description", COUNT(*) AS "Total", SUM(CASE WHEN EXTRACT(YEAR FROM hiredate) = 1980 THEN 1 ELSE 0 END) AS "1980",
+       SUM(CASE WHEN EXTRACT(YEAR FROM hiredate) = 1981 THEN 1 ELSE 0 END) AS "1981", SUM(CASE WHEN EXTRACT(YEAR FROM hiredate) = 1982 THEN 1 ELSE 0 END) AS "1982", SUM(CASE WHEN EXTRACT(YEAR FROM hiredate) = 1983 THEN 1 ELSE 0 END) AS "1983"
+     FROM emp;
+
+
+12. SELECT JOB, SUM(CASE WHEN DEPTNO = 10 THEN SAL ELSE 0 END) AS "DEPT 10", SUM(CASE WHEN DEPTNO = 20 THEN SAL ELSE 0 END) AS "DEPT 20",
+    SUM(CASE WHEN DEPTNO = 30 THEN SAL ELSE 0 END) AS "DEPT 30", SUM(CASE WHEN DEPTNO IN (10, 20, 30) THEN SAL ELSE 0 END) AS "Total"
+    FROM EMP
+    WHERE DEPTNO IN (10, 20, 30)
+    GROUP BY JOB;
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,97 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Practica 10:
+
+
+
+1. CREATE TABLE DEPT_2 (
+    ID NUMBER(7) NOT NULL,
+    NAME VARCHAR(25)
+);
+
+
+
+2. INSERT INTO DEPT_2 (ID, NAME)
+   SELECT DEPARTMENT_ID, DEPARTMENT_NAME
+   FROM DEPARTMENTS;
+
+
+3. CREATE TABLE EMP_2 (
+    ID NUMBER(7),
+    LAST_NAME VARCHAR(25),
+    FIRST_NAME VARCHAR(25),
+    DEPT_ID NUMBER(7)
+
+);
+
+
+
+4. CREATE TABLE EMPLOYEES2 AS
+   SELECT EMPLOYEE_ID AS ID, FIRST_NAME, LAST_NAME, SALARY, DEPARTMENT_ID AS DEPT_ID
+   FROM EMPLOYEES;
+
+5.ALTER TABLE EMPLOYEES2
+  READ ONLY;
+
+
+6. INSERT INTO EMPLOYEES2 (ID, FIRST_NAME, LAST_NAME, SALARY, DEPT_ID)
+   VALUES (34, 'Grant', 'Marcie', 5678, 10);
+
+----------------------------------------------------------------------------------------------------
+Error at line 1/13: ORA-12081: update operation not allowed on table "ES_A198_SQL_S60"."EMPLOYEES2"
+ORA-06512: at "SYS.WWV_DBMS_SQL_APEX_220200", line 828
+ORA-06512: at "SYS.DBMS_SYS_SQL", line 1658
+ORA-06512: at "SYS.WWV_DBMS_SQL_APEX_220200", line 813
+ORA-06512: at "APEX_220200.WWV_FLOW_DYNAMIC_EXEC", line 2046
+
+
+1. INSERT INTO EMPLOYEES2 (ID, FIRST_NAME, LAST_NAME, SALARY, DEPT_ID)
+2. VALUES (34, 'Grant', 'Marcie', 5678, 10);
+-----------------------------------------------------------------------------------------------------
+
+
+
+7. ALTER TABLE EMPLOYEES2 READ WRITE;
+
+
+   INSERT INTO EMPLOYEES2 (ID, FIRST_NAME, LAST_NAME, SALARY, DEPT_ID)
+   VALUES (34, 'Grant', 'Marcie', 5678, 10);
+
+--------------------
+1 row(s) inserted.
+
+0.00 seconds
+-------------------
+
+
+
+8. DROP TABLE EMPLOYEES2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+------------------------------------------------------------------------------------------------------------------------------------------------------------
