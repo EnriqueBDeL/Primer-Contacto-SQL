@@ -1,0 +1,651 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Ejercicio 1:
+
+
+
+
+
+DROP TABLE PIEZAS;
+
+DROP TABLE CARACTERISTICAS;
+
+DROP TABLE TEMATICA;
+
+DROP TABLE COMPRA;
+
+DROP TABLE CLIENTE;
+
+DROP TABLE CAJA_DE_ORDENADOR;
+
+DROP TABLE MATERIAL;
+
+
+---------------------------------------------------------------------------------------------------------------
+CREATE TABLE Cliente (
+    ID_CLIENTE INT PRIMARY KEY,
+    NOMBRE_PILA VARCHAR(50),
+    APELLIDO_1 VARCHAR(50),
+    APELLIDO_2 VARCHAR(50),
+    CORREO_ELECTRONICO VARCHAR(100),
+    DIRECCION VARCHAR(255),
+    TELEFONO VARCHAR(15)
+);
+
+---------------------------------------------------------------------------------------------------------------
+CREATE TABLE Compra (
+    ID_COMPRA INT PRIMARY KEY,
+    FECHA DATE,
+    UNIDADES_DE_CADA_CAJA INT,
+    ID_CLIENTE INT,
+    FOREIGN KEY (ID_CLIENTE) REFERENCES Cliente(ID_CLIENTE)
+);
+---------------------------------------------------------------------------------------------------------------
+ 
+CREATE TABLE Caja_de_Ordenador (
+    ID_PRODUCTO INT PRIMARY KEY,
+    NOMBRE VARCHAR(100),
+    DESCRIPCION TEXT,
+    PRECIO_UNITARIO DECIMAL(10, 2),
+    ID_COMPRA INT,
+    FOREIGN KEY (ID_COMPRA) REFERENCES Compra(ID_COMPRA)
+);
+
+---------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Tematica (
+    ID_TEMATICA INT PRIMARY KEY,
+    NOMBRE VARCHAR(100),
+    PEGATINAS INT,
+    ID_PRODUCTO INT,
+    FOREIGN KEY (ID_PRODUCTO) REFERENCES Caja_de_Ordenador(ID_PRODUCTO)
+);
+
+---------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Caracteristicas (
+    ID_CAJA INT PRIMARY KEY,
+    DIMENSIONES VARCHAR(50),
+    COLOR VARCHAR(30),
+    PRECIO DECIMAL(10, 2),
+    ID_PRODUCTO INT,
+    FOREIGN KEY (ID_PRODUCTO) REFERENCES Caja_de_Ordenador(ID_PRODUCTO)
+);
+
+---------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Material (
+    ID_MATERIAL INT PRIMARY KEY,
+    NOMBRE VARCHAR(50),
+    LIGERO BOOLEAN,
+    PSEADO BOOLEAN,
+    ID_CAJA INT,
+    FOREIGN KEY (ID_CAJA) REFERENCES Caracteristicas(ID_CAJA)
+);
+
+---------------------------------------------------------------------------------------------------------------
+ 
+CREATE TABLE Piezas (
+    ID_PIEZA INT PRIMARY KEY,
+    NOMBRE VARCHAR(50),
+    TIPO VARCHAR(50),
+    DIMENSIONES VARCHAR(50),
+    PRECIO DECIMAL(10, 2),
+    ID_CAJA INT,
+    FOREIGN KEY (ID_CAJA) REFERENCES Caracteristicas(ID_CAJA)
+);
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+Ejercicio 2:
+
+
+
+
+TEMATICAS:
+
+---------------------------------------------------------------------------------------------------------------
+INSERT INTO Tematica (ID_TEMATICA, NOMBRE, PEGATINAS, ID_PRODUCTO)
+VALUES (201, 'Pelicula', 5, 101);
+
+INSERT INTO Tematica (ID_TEMATICA, NOMBRE, PEGATINAS, ID_PRODUCTO)
+VALUES (202, 'Serie', 8, 102);
+
+INSERT INTO Tematica (ID_TEMATICA, NOMBRE, PEGATINAS, ID_PRODUCTO)
+VALUES (203, 'Videojuego', 3, 103);
+---------------------------------------------------------------------------------------------------------------
+Comprobación:
+
+SELECT *
+FROM TEMATICA
+ORDER BY ID_TEMATICA DESC;
+
+---------------------------------------------------------------------------------------------------------------
+Actualización:
+
+UPDATE TEMATICA
+SET PEGATINAS = 15
+WHERE NOMBRE = 'Videojuegos';
+
+---------------------------------------------------------------------------------------------------------------
+Borrado:
+
+DELETE FROM TEMATICA
+WHERE NOMBRE = 'Series';
+
+---------------------------------------------------------------------------------------------------------------
+Secuencia:
+
+CREATE SEQUENCE SECUENCIA_ID
+START WITH 1
+INCREMENT BY 1;
+
+INSERT INTO TEMATICA (ID_TEMATICA, NOMBRE, PEGATINAS)
+VALUES (SECUENCIA_ID.NEXTVAL, 'Videojuegos', 10);
+
+INSERT INTO TEMATICA (ID_TEMATICA, NOMBRE, PEGATINAS)
+VALUES (SECUENCIA_ID.NEXTVAL, 'Peliculas', 5);
+
+INSERT INTO TEMATICA (ID_TEMATICA, NOMBRE, PEGATINAS)
+VALUES (SECUENCIA_ID.NEXTVAL, 'Series', 8);
+
+---------------------------------------------------------------------------------------------------------------
+
+ 
+
+
+
+CARACTERISTICAS:
+
+---------------------------------------------------------------------------------------------------------------
+INSERT INTO Caracteristicas (ID_CAJA, DIMENSIONES, COLOR, PRECIO, ID_PRODUCTO)
+VALUES (301, '40x20x50 cm', 'Negro', 79.99, 101);
+
+INSERT INTO Caracteristicas (ID_CAJA, DIMENSIONES, COLOR, PRECIO, ID_PRODUCTO)
+VALUES (302, '35x18x48 cm', 'Blanco', 119.99, 102);
+
+INSERT INTO Caracteristicas (ID_CAJA, DIMENSIONES, COLOR, PRECIO, ID_PRODUCTO)
+VALUES (303, '45x25x55 cm', 'Gris', 59.99, 103);
+---------------------------------------------------------------------------------------------------------------
+Comprobación:
+
+SELECT *
+FROM CARACTERISTICAS
+ORDER BY ID_CAJA DESC;
+
+---------------------------------------------------------------------------------------------------------------
+Actualización:
+
+UPDATE CARACTERISTICAS
+SET DIMENSIONES = 20
+WHERE COLOR = 'Rojo';
+
+---------------------------------------------------------------------------------------------------------------
+Borrado:
+
+DELETE FROM CARACTERISTICAS
+WHERE COLOR = 'Verde';
+
+---------------------------------------------------------------------------------------------------------------
+Secuencia:
+
+CREATE SEQUENCE SECUENCIA_ID2
+START WITH 1
+INCREMENT BY 1;
+
+INSERT INTO CARACTERISTICAS (ID_CAJA, COLOR, DIMENSIONES, PRECIO)
+VALUES (SECUENCIA_ID2.NEXTVAL, 'Rojo', 10, 50);
+
+INSERT INTO CARACTERISTICAS (ID_CAJA, COLOR, DIMENSIONES, PRECIO)
+VALUES (SECUENCIA_ID2.NEXTVAL, 'Azul', 15, 80);
+
+INSERT INTO CARACTERISTICAS (ID_CAJA, COLOR, DIMENSIONES, PRECIO)
+VALUES (SECUENCIA_ID2.NEXTVAL, 'Verde', 12, 65);
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+PIEZAS:
+
+---------------------------------------------------------------------------------------------------------------
+INSERT INTO Piezas (ID_PIEZA, NOMBRE, TIPO, DIMENSIONES, PRECIO, ID_CAJA)
+VALUES (501, 'Tarjeta Madre', 'Componente', '30x30 cm', 149.99, 301);
+
+INSERT INTO Piezas (ID_PIEZA, NOMBRE, TIPO, DIMENSIONES, PRECIO, ID_CAJA)
+VALUES (502, 'Procesador', 'Componente', '5x5 cm', 299.99, 302);
+
+INSERT INTO Piezas (ID_PIEZA, NOMBRE, TIPO, DIMENSIONES, PRECIO, ID_CAJA)
+VALUES (503, 'Memoria RAM', 'Componente', '10x2 cm', 79.99, 303);
+---------------------------------------------------------------------------------------------------------------
+Comprobación:
+
+SELECT *
+FROM PIEZAS
+ORDER BY ID_PIEZA DESC;
+
+---------------------------------------------------------------------------------------------------------------
+Actualización:
+
+UPDATE PIEZAS
+SET DIMENSIONES = 20
+WHERE TIPO = 'Tipo 1';
+
+---------------------------------------------------------------------------------------------------------------
+Borrado:
+
+DELETE FROM PIEZAS
+WHERE TIPO = 'Tipo 3';
+
+---------------------------------------------------------------------------------------------------------------
+Secuencia:
+
+CREATE SEQUENCE SECUENCIA_ID_PIEZAS
+START WITH 1
+INCREMENT BY 1;
+
+INSERT INTO PIEZAS (ID_PIEZA, TIPO, NOMBRE, DIMENSIONES, PRECIO)
+VALUES (SECUENCIA_ID_PIEZAS.NEXTVAL, 'Tipo 1', 'Pieza 1', 10, 50);
+
+INSERT INTO PIEZAS (ID_PIEZA, TIPO, NOMBRE, DIMENSIONES, PRECIO)
+VALUES (SECUENCIA_ID_PIEZAS.NEXTVAL, 'Tipo 2', 'Pieza 2', 15, 80);
+
+INSERT INTO PIEZAS (ID_PIEZA, TIPO, NOMBRE, DIMENSIONES, PRECIO)
+VALUES (SECUENCIA_ID_PIEZAS.NEXTVAL, 'Tipo 3', 'Pieza 3', 12, 65);
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+CLIENTE:
+
+---------------------------------------------------------------------------------------------------------------
+INSERT INTO Cliente (ID_CLIENTE, NOMBRE_PILA, APELLIDO_1, APELLIDO_2, CORREO_ELECTRONICO, DIRECCION, TELEFONO)
+VALUES (1, 'Juan', 'Gómez', 'López', 'juan@gmail.com', 'Calle 123, Ciudad', '123456789');
+
+INSERT INTO Cliente (ID_CLIENTE, NOMBRE_PILA, APELLIDO_1, APELLIDO_2, CORREO_ELECTRONICO, DIRECCION, TELEFONO)
+VALUES (2, 'María', 'Rodríguez', 'Pérez', 'maria@hotmail.com', 'Avenida XYZ, Pueblo', '987654321');
+
+INSERT INTO Cliente (ID_CLIENTE, NOMBRE_PILA, APELLIDO_1, APELLIDO_2, CORREO_ELECTRONICO, DIRECCION, TELEFONO)
+VALUES (3, 'Carlos', 'Fernández', 'Martínez', 'carlos@yahoo.com', 'Plaza 456, Villa', '555555555');
+---------------------------------------------------------------------------------------------------------------
+Comprobación:
+
+SELECT *
+FROM CLIENTE
+ORDER BY ID_CLIENTE DESC
+
+---------------------------------------------------------------------------------------------------------------
+Actualización:
+
+UPDATE CLIENTE
+SET TELEFONO = 55807845
+WHERE NOMBRE = 'Pedro';
+
+---------------------------------------------------------------------------------------------------------------
+Borrado:
+
+DELETE FROM CLIENTE
+WHERE NOMBRE = 'María';
+
+---------------------------------------------------------------------------------------------------------------
+Secuencia:
+
+CREATE SEQUENCE SECUENCIA_ID_CLIENTE
+START WITH 1
+INCREMENT BY 1;
+
+INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE, APELLIDO_1, APELLIDO_2, CORREO_ELECTRONICO, DIRECCION, TELEFONO)
+VALUES (SECUENCIA_ID_CLIENTE.NEXTVAL, 'Juan', 'García', 'López', 'juan@example.com', 'Calle 123', 123456789);
+
+INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE, APELLIDO_1, APELLIDO_2, CORREO_ELECTRONICO, DIRECCION, TELEFONO)
+VALUES (SECUENCIA_ID_CLIENTE.NEXTVAL, 'María', 'Martínez', 'Sánchez', 'maria@example.com', 'Avenida 456', 987654321);
+
+INSERT INTO CLIENTE (ID_CLIENTE, NOMBRE, APELLIDO_1, APELLIDO_2, CORREO_ELECTRONICO, DIRECCION, TELEFONO)
+VALUES (SECUENCIA_ID_CLIENTE.NEXTVAL, 'Pedro', 'Rodríguez', 'Gómez', 'pedro@example.com', 'Plaza 789', NULL);
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+COMPRA:
+
+---------------------------------------------------------------------------------------------------------------
+INSERT INTO Compra (ID_COMPRA, FECHA, UNIDADES_DE_CADA_CAJA, ID_CLIENTE)
+VALUES (1, TO_DATE('2024-01-16', 'YYYY-MM-DD'), 2, 1);
+
+INSERT INTO Compra (ID_COMPRA, FECHA, UNIDADES_DE_CADA_CAJA, ID_CLIENTE)
+VALUES (2, TO_DATE('2024-01-17', 'YYYY-MM-DD'), 1, 2);
+
+INSERT INTO Compra (ID_COMPRA, FECHA, UNIDADES_DE_CADA_CAJA, ID_CLIENTE)
+VALUES (3, TO_DATE('2024-01-18', 'YYYY-MM-DD'), 3, 3);
+---------------------------------------------------------------------------------------------------------------
+Comprobación:
+
+SELECT * 
+FROM COMPRA 
+ORDER BY ID_COMPRA DESC
+
+---------------------------------------------------------------------------------------------------------------
+Actualización:
+
+UPDATE COMPRA
+SET NUMERO_DE_CADA_CAJA = 789
+WHERE ID_COMPRA = 1;
+
+---------------------------------------------------------------------------------------------------------------
+Borrado:
+
+DELETE FROM COMPRA
+WHERE ID_COMPRA = 2;
+
+---------------------------------------------------------------------------------------------------------------
+Secuencia:
+
+CREATE SEQUENCE SECUENCIA_ID_COMPRA
+START WITH 1
+INCREMENT BY 1;
+
+INSERT INTO COMPRA (ID_COMPRA, NUMERO_DE_CADA_CAJA, FECHA, ID_CLIENTE)
+VALUES (SECUENCIA_ID_COMPRA.NEXTVAL, 789, TO_DATE('2024-02-20', 'YYYY-MM-DD'), 1);
+
+INSERT INTO COMPRA (ID_COMPRA, NUMERO_DE_CADA_CAJA, FECHA, ID_CLIENTE)
+VALUES (SECUENCIA_ID_COMPRA.NEXTVAL, 1011, TO_DATE('2024-03-10', 'YYYY-MM-DD'), 3);
+
+INSERT INTO COMPRA (ID_COMPRA, NUMERO_DE_CADA_CAJA, FECHA, ID_CLIENTE)
+VALUES (SECUENCIA_ID_COMPRA.NEXTVAL, 401, TO_DATE('2023-03-10', 'YYYY-MM-DD'), 2);
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+CAJA_DE_ORDENADOR:
+
+---------------------------------------------------------------------------------------------------------------
+INSERT INTO Caja_de_Ordenador (ID_PRODUCTO, NOMBRE, DESCRIPCION, PRECIO_UNITARIO, ID_COMPRA)
+VALUES (101, 'Caja Gamer X', 'Caja de ordenador diseñada para gamers con iluminación LED', 89.99, 1);
+
+INSERT INTO Caja_de_Ordenador (ID_PRODUCTO, NOMBRE, DESCRIPCION, PRECIO_UNITARIO, ID_COMPRA)
+VALUES (102, 'Caja Profesional Pro', 'Caja de ordenador con diseño profesional y múltiples compartimentos', 129.99, 2);
+
+INSERT INTO Caja_de_Ordenador (ID_PRODUCTO, NOMBRE, DESCRIPCION, PRECIO_UNITARIO, ID_COMPRA)
+VALUES (103, 'Caja Minimalista', 'Caja de ordenador con diseño minimalista y espacio optimizado', 69.99, 3);
+---------------------------------------------------------------------------------------------------------------
+Comprobación:
+
+SELECT * 
+FROM CAJA_DE_ORDENADOR 
+ORDER BY ID_PRODUCTO DESC;
+
+---------------------------------------------------------------------------------------------------------------
+Actualización:
+
+UPDATE CAJA_DE_ORDENADOR
+SET PRECIO_UNITARIO = 59.99
+WHERE ID_PRODUCTO = 1;
+
+---------------------------------------------------------------------------------------------------------------
+Borrado:
+
+DELETE FROM CAJA_DE_ORDENADOR
+WHERE ID_PRODUCTO = 5436;
+
+---------------------------------------------------------------------------------------------------------------
+Secuencia:
+
+CREATE SEQUENCE SECUENCIA_ID_CAJA_DE_ORDENADOR 
+START WITH 1
+INCREMENT BY 1;
+
+INSERT INTO CAJA_DE_ORDENADOR (ID_PRODUCTO, NOMBRE, DESCRIPCION, PRECIO_UNITARIO)
+VALUES (SECUENCIA_ID_CAJA_DE_ORDENADOR.NEXTVAL, 'Caja de Ordenador 1', 'Descripción 1', 49.99);
+
+INSERT INTO CAJA_DE_ORDENADOR (ID_PRODUCTO, NOMBRE, DESCRIPCION, PRECIO_UNITARIO)
+VALUES (SECUENCIA_ID_CAJA_DE_ORDENADOR.NEXTVAL, 'Caja de Ordenador 2', 'Descripción 2', 69.99);
+
+INSERT INTO CAJA_DE_ORDENADOR (ID_PRODUCTO, NOMBRE, DESCRIPCION, PRECIO_UNITARIO)
+VALUES (SECUENCIA_ID_CAJA_DE_ORDENADOR.NEXTVAL, 'Caja de Ordenador 3', 'Descripción 3', 89.99);
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+ 
+MATERIAL:
+
+---------------------------------------------------------------------------------------------------------------
+INSERT INTO MATERIAL (ID_MATERIAL, NOMBRE, ES_PESADO, ES_LIGERO)
+VALUES (3456, 'Material 1', 'SI', 'NO');
+
+INSERT INTO MATERIAL (ID_MATERIAL, NOMBRE, ES_PESADO, ES_LIGERO)
+VALUES (2134, 'Material 2', 'NO', 'SI');
+
+INSERT INTO MATERIAL (ID_MATERIAL, NOMBRE, ES_PESADO, ES_LIGERO)
+VALUES (5678, 'Material 3', 'SI', 'NO');
+---------------------------------------------------------------------------------------------------------------
+Comprobación:
+
+SELECT * 
+FROM MATERIAL 
+ORDER BY ID_MATERIAL DESC;
+
+---------------------------------------------------------------------------------------------------------------
+Actualización:
+
+UPDATE MATERIAL
+SET ES_PESADO = 'N0'
+WHERE ID_MATERIAL = 1;
+
+---------------------------------------------------------------------------------------------------------------
+Borrado:
+
+DELETE FROM MATERIAL
+WHERE ID_MATERIAL = 2134;
+
+---------------------------------------------------------------------------------------------------------------
+Secuencia:
+
+CREATE SEQUENCE SECUENCIA_ID_MATERIAL
+START WITH 1
+INCREMENT BY 1;
+
+INSERT INTO Material (ID_MATERIAL, NOMBRE, LIGERO, PESADO, ID_CAJA)
+VALUES (SECUENCIA_ID_MATERIAL.NEXTVAL, 'Material4', 0, 1, 204);
+
+INSERT INTO Material (ID_MATERIAL, NOMBRE, LIGERO, PESADO, ID_CAJA)
+VALUES (SECUENCIA_ID_MATERIAL.NEXTVAL, 'Material5', 1, 0, 205);
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+Ejercicio 3:
+
+
+
+a)
+
+
+SELECT
+    CL.NOMBRE_PILA AS NOMBRE_CLIENTE,
+    CL.TELEFONO,
+    CO.NOMBRE AS NOMBRE_CAJA,
+    C.UNIDADES_DE_CADA_CAJA AS UNIDADES,
+    T.NOMBRE AS TEMATICA,
+    CO.PRECIO_UNITARIO * C.UNIDADES_DE_CADA_CAJA AS IMPORTE_TOTAL
+FROM Compra C
+JOIN Cliente CL ON C.ID_CLIENTE = CL.ID_CLIENTE
+JOIN Caja_de_Ordenador CO ON C.ID_COMPRA = CO.ID_COMPRA
+JOIN Tematica T ON CO.ID_PRODUCTO = T.ID_PRODUCTO;
+
+
+
+b)
+
+
+SELECT
+    CL.NOMBRE_PILA AS NOMBRE_CLIENTE,
+    CL.TELEFONO,
+    CO.NOMBRE AS NOMBRE_CAJA,
+    C.UNIDADES_DE_CADA_CAJA AS UNIDADES,
+    T.NOMBRE AS TEMATICA,
+    CO.PRECIO_UNITARIO * C.UNIDADES_DE_CADA_CAJA AS IMPORTE_TOTAL
+FROM Compra C
+JOIN Cliente CL ON C.ID_CLIENTE = CL.ID_CLIENTE
+JOIN Caja_de_Ordenador CO ON C.ID_COMPRA = CO.ID_COMPRA
+JOIN Tematica T ON CO.ID_PRODUCTO = T.ID_PRODUCTO
+WHERE EXTRACT(YEAR FROM C.FECHA) = 2023
+  AND CO.PRECIO_UNITARIO * C.UNIDADES_DE_CADA_CAJA > 80;
+
+
+
+
+c)
+
+
+SELECT
+    CL.NOMBRE_PILA AS NOMBRE_CLIENTE,
+    CL.TELEFONO,
+    CO.NOMBRE AS NOMBRE_CAJA,
+    C.UNIDADES_DE_CADA_CAJA AS UNIDADES,
+    T.NOMBRE AS TEMATICA,
+    CO.PRECIO_UNITARIO * C.UNIDADES_DE_CADA_CAJA AS IMPORTE_TOTAL
+FROM Compra C
+JOIN Cliente CL ON C.ID_CLIENTE = CL.ID_CLIENTE
+JOIN Caja_de_Ordenador CO ON C.ID_COMPRA = CO.ID_COMPRA
+JOIN Tematica T ON CO.ID_PRODUCTO = T.ID_PRODUCTO
+ORDER BY IMPORTE_TOTAL DESC
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+4.
+
+
+
+a)
+
+
+SELECT
+    CO.ID_PRODUCTO AS ID_TIPO_CAJA,
+    CO.NOMBRE AS DESCRIPCION,
+    CO.PRECIO_UNITARIO AS PRECIO,
+    AVG(CO.PRECIO_UNITARIO * C.UNIDADES_DE_CADA_CAJA) AS PRECIO_MEDIO_COMPRA,
+    COUNT(DISTINCT C.ID_COMPRA) AS NUMERO_COMPRAS,
+    COUNT(DISTINCT CL.ID_CLIENTE) AS NUMERO_CLIENTES,
+    COUNT(DISTINCT T.ID_TEMATICA) AS NUMERO_TEMATICAS,
+    COUNT(DISTINCT CO.ID_COMPRA) AS CAJAS_PERSONALIZADAS
+FROM Caja_de_Ordenador CO
+JOIN Compra C ON CO.ID_COMPRA = C.ID_COMPRA
+JOIN Tematica T ON CO.ID_PRODUCTO = T.ID_PRODUCTO
+JOIN Cliente CL ON C.ID_CLIENTE = CL.ID_CLIENTE
+GROUP BY CO.ID_PRODUCTO, CO.NOMBRE, CO.PRECIO_UNITARIO;
+
+
+
+
+
+
+b)
+
+
+
+
+SELECT
+    CO.ID_PRODUCTO AS ID_TIPO_CAJA,
+    CO.NOMBRE AS DESCRIPCION,
+    CO.PRECIO_UNITARIO AS PRECIO,
+    AVG(CO.PRECIO_UNITARIO * C.UNIDADES_DE_CADA_CAJA) AS PRECIO_MEDIO_COMPRA,
+    COUNT(DISTINCT C.ID_COMPRA) AS NUMERO_COMPRAS,
+    COUNT(DISTINCT CL.ID_CLIENTE) AS NUMERO_CLIENTES,
+    COUNT(DISTINCT T.ID_TEMATICA) AS NUMERO_TEMATICAS,
+    COUNT(DISTINCT CO.ID_COMPRA) AS CAJAS_PERSONALIZADAS
+FROM Caja_de_Ordenador CO
+JOIN Compra C ON CO.ID_COMPRA = C.ID_COMPRA
+JOIN Tematica T ON CO.ID_PRODUCTO = T.ID_PRODUCTO
+JOIN Cliente CL ON C.ID_CLIENTE = CL.ID_CLIENTE
+WHERE CO.PRECIO_UNITARIO >= 50
+GROUP BY CO.ID_PRODUCTO, CO.NOMBRE, CO.PRECIO_UNITARIO;
+
+
+
+
+
+
+c)
+
+
+
+SELECT
+    CO.ID_PRODUCTO AS ID_TIPO_CAJA,
+    CO.NOMBRE AS DESCRIPCION,
+    CO.PRECIO_UNITARIO AS PRECIO,
+    AVG(CO.PRECIO_UNITARIO * C.UNIDADES_DE_CADA_CAJA) AS PRECIO_MEDIO_COMPRA,
+    COUNT(DISTINCT C.ID_COMPRA) AS NUMERO_COMPRAS,
+    COUNT(DISTINCT CL.ID_CLIENTE) AS NUMERO_CLIENTES,
+    COUNT(DISTINCT T.ID_TEMATICA) AS NUMERO_TEMATICAS,
+    COUNT(DISTINCT CO.ID_COMPRA) AS CAJAS_PERSONALIZADAS
+FROM Caja_de_Ordenador CO
+JOIN Compra C ON CO.ID_COMPRA = C.ID_COMPRA
+JOIN Tematica T ON CO.ID_PRODUCTO = T.ID_PRODUCTO
+JOIN Cliente CL ON C.ID_CLIENTE = CL.ID_CLIENTE
+WHERE CO.PRECIO_UNITARIO >= 50
+GROUP BY CO.ID_PRODUCTO, CO.NOMBRE, CO.PRECIO_UNITARIO
+HAVING COUNT(DISTINCT C.ID_COMPRA) >= 2;
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+------------------------------------------------------------------------------------------------------------------------------------------------------------
